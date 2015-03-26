@@ -1,0 +1,24 @@
+{
+  "name": "text-timer",
+  "main": "text-timer.js",
+  "version": "0.0.0",
+  "authors": [
+    "Yoshiya Hinosawa <stibium121@gmail.com>"
+  ],
+  "description": "Simple text timer",
+  "keywords": [
+    "timer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gameloop": "~0.1.0",
+    "jquery": "~2.1.3"
+  }
+}
