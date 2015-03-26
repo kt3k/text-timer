@@ -4,6 +4,8 @@
 
 This library depends on jquery and [gameloop](https://github.com/kt3k/gameloop).
 
+# [DEMO](http://kt3k.github.io/text-timer/test.html)
+
 # Usage
 
 ```html
