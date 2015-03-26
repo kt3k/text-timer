@@ -2,7 +2,7 @@
 
 > Simple text timer
 
-This library depends on jquery and [gameloop]().
+This library depends on jquery and [gameloop](https://github.com/kt3k/gameloop).
 
 # Usage
 
