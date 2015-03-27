@@ -26,9 +26,19 @@
 
         var $el = $(this);
 
-        var remaining = +$el.attr('data-time') || 180 * 1000;
+        $el.removeClass('text-timer');
 
-        var endAt = remaining + (+new Date());
+        $el.addClass('text-timer-initialized');
+
+        var endAt = +$el.attr('data-end-at');
+
+        if (!endAt) {
+
+            var time = +$el.attr('data-time') || 180 * 1000;
+
+            endAt = time + (+new Date());
+
+        }
 
         var loop = gameloop(function () {
 
@@ -54,12 +64,19 @@
 
     var timeLabel = function (time) {
 
-        var hours = Math.floor(time / 3600000);
+        var days = Math.floor(time / (3600000 * 24));
+        var hours = Math.floor(time / 3600000) % 24;
         var minutes = Math.floor(time / 60000) % 60;
         var seconds = Math.floor(time / 1000) % 60;
         var fragment = Math.floor(time / 10) % 100;
 
-        return zeropad(hours) + ':' + zeropad(minutes) + ':' + zeropad(seconds) + '.' + zeropad(fragment);
+        var label = zeropad(hours) + ':' + zeropad(minutes) + ':' + zeropad(seconds) + '.' + zeropad(fragment);
+
+        if (days > 0) {
+            label = days + ' day(s) + ' + label;
+        }
+
+        return label;
 
     };
 
