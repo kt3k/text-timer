@@ -39,6 +39,8 @@
 
     /**
      * Initializes all the dom-timers in the document.
+     *
+     * @private
      */
     var initDomTimers = function () {
 
@@ -49,6 +51,7 @@
     /**
      * Sets the element as dom-timer.
      *
+     * @private
      * @param {HTMLElement} element
      */
     var setDomTimer = function (element) {
@@ -60,6 +63,7 @@
     /**
      * Initializes the element as a text-timer.
      *
+     * @private
      * @param {HTMLElement} element
      */
     var initOne = function (element) {
@@ -82,6 +86,7 @@
     /**
      * Returns a time label for the given time.
      *
+     * @private
      * @param {Number} time
      * @return {String} The label
      */
@@ -103,6 +108,11 @@
 
     };
 
+    /**
+     * Zeropads it.
+     *
+     * @private
+     */
     var zeropad = function (num) {
 
         return ('00' + num).substr(-2, 2);
