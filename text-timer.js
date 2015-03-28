@@ -3,6 +3,10 @@
 (function ($, gameloop) {
     'use strict';
 
+    var CLASS = 'text-timer';
+    var CLASS_INIT = 'text-timer-initialized';
+    var SELECTOR = '.' + CLASS + ':not(.' + CLASS_INIT + ')';
+
     if (!$) {
 
         throw new Error('jQuery is required');
@@ -16,52 +20,71 @@
 
     }
 
-    var initTextTimers = function () {
+    /**
+     * Initialize all `text-timer`s in the domument.
+     *
+     * @private
+     */
+    var init = function () {
 
-        $('.text-timer').each(initTextTimerOne);
+        $(SELECTOR).each(function () {
 
-    };
-
-    var initTextTimerOne = function () {
-
-        var $el = $(this);
-
-        $el.removeClass('text-timer');
-
-        $el.addClass('text-timer-initialized');
-
-        var endAt = +$el.attr('data-end-at');
-
-        if (!endAt) {
-
-            var time = +$el.attr('data-time') || 180 * 1000;
-
-            endAt = time + (+new Date());
-
-        }
-
-        var loop = gameloop(function () {
-
-            var now = +new Date();
-
-            if (now > endAt) {
-
-                loop.stop();
-
-                now = endAt;
-
-            }
-
-            $el.text(timeLabel(endAt - now));
+            initOne(this);
 
         });
 
-        loop.setFPS(+$el.attr('data-fps') || 30);
-
-        loop.start();
+        initDomTimers();
 
     };
 
+    /**
+     * Initializes all the dom-timers in the document.
+     */
+    var initDomTimers = function () {
+
+        $(document).trigger('init.dom-timer');
+
+    };
+
+    /**
+     * Sets the element as dom-timer.
+     *
+     * @param {HTMLElement} element
+     */
+    var setDomTimer = function (element) {
+
+        $(element).addClass('dom-timer');
+
+    };
+
+    /**
+     * Initializes the element as a text-timer.
+     *
+     * @param {HTMLElement} element
+     */
+    var initOne = function (element) {
+
+        var $el = $(element);
+
+        // mark as initialized
+        $el.addClass(CLASS_INIT);
+
+        $el.on('tick.dom-timer', function (event, timeRemains) {
+
+            $(this).text(timeLabel(timeRemains));
+
+        });
+
+        setDomTimer(element);
+
+    };
+
+    /**
+     * Returns a time label for the given time.
+     *
+     * @param {Number} time
+     * @return {String} The label
+     */
     var timeLabel = function (time) {
 
         var days = Math.floor(time / (3600000 * 24));
@@ -87,7 +110,7 @@
     };
 
 
-    $(document).on('init.text-timer', initTextTimers);
+    $(document).on('init.text-timer', init);
 
     $(function () {
 
