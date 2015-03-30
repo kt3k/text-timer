@@ -1,4 +1,4 @@
-# text-timer v0.1.1
+# text-timer v0.2.0
 
 > Simple text timer
 
